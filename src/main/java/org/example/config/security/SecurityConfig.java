@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletOutputStream;
 import lombok.RequiredArgsConstructor;
 import org.example.dtos.AppErrorDTO;
+import org.example.entity.Customer;
+import org.example.repository.CustomerRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,7 +33,7 @@ import java.util.List;
 public class SecurityConfig {
 
     private final ObjectMapper objectMapper;
-    private final AuthUserRepository authUserRepository;
+    private final CustomerRepository customerRepository;
     private final JwtTokenUtil jwtTokenUtil;
 
     @Bean
@@ -45,9 +47,6 @@ public class SecurityConfig {
                         "/swagger-ui*/**",
                         "/swagger-ui*/*swagger-initializer.js",
                         "/v3/api-docs*/**",
-                        "/actuator/health*/**",
-                        "/api/v1/auth/**",
-                        "/actuator",
                         "/error",
                         "/webjars/**",
                         "/api/open",
@@ -103,9 +102,9 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> {
-            AuthUser authUser = authUserRepository.findByUsername(username)
+            Customer customer = customerRepository.findByEmail(username)
                     .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-            return new UserDetails(authUser);
+            return new UserDetails(customer);
         };
     }
 

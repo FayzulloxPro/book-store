@@ -1,37 +1,43 @@
 package org.example.config.security;
 
-import dev.fayzullokh.domains.AuthUser;
+
+import org.example.entity.Customer;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
-    private final AuthUser authUser;
+    private final Customer customer;
     private Long id;
     private String email;
 
-    public UserDetails(@NonNull AuthUser authUser) {
-        this.authUser = authUser;
-        this.email = authUser.getEmail();
-        this.id = authUser.getId();
+    public UserDetails(@NonNull Customer customer) {
+        this.customer = customer;
+        this.email = customer.getEmail();
+        this.id = customer.getId();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + authUser.getRole()));
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        if (customer.isAdmin()) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        }
+        return authorities;
     }
-
     @Override
     public String getPassword() {
-        return authUser.getPassword();
+        return customer.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return authUser.getUsername();
+        return email;
     }
 
     @Override
@@ -51,14 +57,10 @@ public class UserDetails implements org.springframework.security.core.userdetail
 
     @Override
     public boolean isEnabled() {
-        return authUser.isActive();
+        return true;
     }
 
     public Long getId() {
-        return id;
-    }
-
-    public String getEmail() {
-        return email;
+        return customer.getId();
     }
 }

@@ -36,7 +36,7 @@ public class OpenApiConfig {
                         .description("SpringShop Wiki Documentation")
                         .url("https://springshop.wiki.github.org/docs"))
                 .servers(List.of(
-                        new Server().url("http://localhost:8080").description("Development Server")
+                        new Server().url("http://localhost:9999").description("Development Server")
                 )).addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
                 .components((new Components()
                         .addSecuritySchemes("bearerAuth", new SecurityScheme()

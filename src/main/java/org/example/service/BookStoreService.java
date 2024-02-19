@@ -1,6 +1,7 @@
 package org.example.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.entity.Book;
 import org.example.repository.BookRepository;
 import org.example.repository.CustomerRepository;
 import org.example.repository.OrderRepository;
@@ -17,4 +18,12 @@ public class BookStoreService {
 
 
     private final OrderRepository orderRepository;
+
+    public Book createBook(Book book) {
+        return bookRepository.save(book);
+    }
+
+    public void deleteBookById(Long bookId) {
+        bookRepository.findById(bookId).orElseThrow(() -> new NotFOundEx)
+    }
 }

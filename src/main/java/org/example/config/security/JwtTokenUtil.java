@@ -1,7 +1,7 @@
 package org.example.config.security;
 
-import dev.fayzullokh.dtos.auth.TokenResponse;
-import dev.fayzullokh.enums.TokenType;
+import org.example.dtos.auth.TokenResponse;
+import org.example.enums.TokenType;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
 import java.security.Key;
 import java.util.Date;
 
-import static dev.fayzullokh.enums.TokenType.ACCESS;
-import static dev.fayzullokh.enums.TokenType.REFRESH;
+import static org.example.enums.TokenType.ACCESS;
+import static org.example.enums.TokenType.REFRESH;
 
 @Component
 public class JwtTokenUtil {
