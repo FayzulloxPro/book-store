@@ -6,6 +6,8 @@ import org.example.entity.Book;
 import org.example.mapper.BookMapper;
 import org.example.repository.BookRepository;
 import org.example.service.BookStoreService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -34,5 +36,10 @@ public class BookController {
     public ResponseEntity<Void> delete(@PathVariable Long bookId) {
         service.deleteBookById(bookId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping
+    public Page<Book> getAllBooks(Pageable pageable) {
+        return service.getAllBooks(pageable);
     }
 }

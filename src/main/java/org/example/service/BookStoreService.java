@@ -2,9 +2,12 @@ package org.example.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.entity.Book;
+import org.example.exception.ItemNotFoundException;
 import org.example.repository.BookRepository;
 import org.example.repository.CustomerRepository;
 import org.example.repository.OrderRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,6 +27,11 @@ public class BookStoreService {
     }
 
     public void deleteBookById(Long bookId) {
-        bookRepository.findById(bookId).orElseThrow(() -> new NotFOundEx)
+        Book book = bookRepository.findById(bookId).orElseThrow(() -> new ItemNotFoundException("Book not found with id: " + bookId));
+        bookRepository.delete(book);
+    }
+
+    public Page<Book> getAllBooks(Pageable pageable) {
+        return bookRepository.findAll(pageable);
     }
 }
