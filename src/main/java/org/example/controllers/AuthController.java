@@ -27,12 +27,12 @@ public class AuthController {
     private final CustomerMapper customerMapper;
 
     @PostMapping("/access/token")
-    public ResponseEntity<TokenResponse> generateToken(@RequestBody TokenRequest tokenRequest) {
+    public ResponseEntity<TokenResponse> generateToken(@RequestBody @Valid TokenRequest tokenRequest) {
         return ResponseEntity.ok(authService.generateToken(tokenRequest));
     }
 
     @PostMapping("/refresh/token")
-    public ResponseEntity<TokenResponse> refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
+    public ResponseEntity<TokenResponse> refreshToken(@RequestBody @Valid RefreshTokenRequest refreshTokenRequest) {
         return ResponseEntity.ok(authService.refreshToken(refreshTokenRequest));
     }
 
@@ -40,11 +40,5 @@ public class AuthController {
     public ResponseEntity<CustomerResponseDTO> register(@Nonnull @Valid @RequestBody CustomerCreateDTO customerCreateDTO) throws DuplicateUsernameException {
         Customer customer = authService.create(customerCreateDTO);
         return ResponseEntity.ok(customerMapper.toDTO(customer));
-    }
-
-    @PostMapping("/api/logout")
-    public ResponseEntity<Void> logout() {
-        authService.logout();
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

@@ -1,13 +1,13 @@
 package org.example.config.security;
 
-import org.example.dtos.auth.TokenResponse;
-import org.example.enums.TokenType;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.Nonnull;
+import org.example.dtos.auth.TokenResponse;
+import org.example.enums.TokenType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 

@@ -1,18 +1,9 @@
 package org.example.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -25,10 +16,18 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column
     private String name;
+
+    @Column(unique = true)
     private String email;
+    @Column
+    @JsonIgnore
     private String password;
+    @Column
     private double totalPurchasesAmount;
+    @JsonIgnore
+    @Column(name = "is_admin")
     private boolean isAdmin;
 
 

@@ -23,7 +23,7 @@ public class BookCreateDTO {
     @Size(max = 255, message = "Genre cannot exceed 255 characters")
     private String genre;
 
-    @Positive(message = "Price cannot be negative")
+    @PositiveOrZero(message = "Price cannot be negative")
     private double price;
 
 
