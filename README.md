@@ -15,3 +15,6 @@ Default holatda proyektga 2 ta user qo'shiladi (DBMockDataLoader class ichida) e
 
 va default holatda 10 ta kitob qo'shiladi (DBMockDataLoader class ichida).
 
+
+Best practicelarga iloji boricha amal qilish uchun task requirementlaridagi 4chi band boshqacharoq, alohida-alohida service class lar yaratildi.
+
